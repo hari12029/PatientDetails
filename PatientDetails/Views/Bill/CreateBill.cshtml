@@ -1,0 +1,65 @@
+﻿@model ViewModels.ViewModel.BillViewModel
+
+@{
+    ViewData["Title"] = "Add Bill";
+
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    #Home {
+        text-decoration: none
+    }
+</style>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Add Bill</h1>
+
+        <form method="post" action="\Bill\CreateBill">
+
+            <div class="mb-3">
+                <label asp-for="PatientName" class="control-label"></label>
+                <select value="--select--" asp-for="PatientName" class="form-control" asp-items="ViewBag.PatientNamedropdownvalues"></select>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">TotalAmount</label>
+                <input type="number" class="form-control" id="totalAmount" asp-for="TotalAmount" />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">AmountPaid</label>
+                <input type="number" class="form-control" id="amountPaid" asp-for="AmountPaid" />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Balance</label>
+                <input type="number" class="form-control" id="balance" asp-for="Balance" />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">BillDate</label>
+                <input type="date" class="form-control" id="billdate" asp-for="BillDate" />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">ItemName</label>
+                <input type="text" class="form-control" asp-for="ItemName" />
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a class="btn btn-primary" id="Home" href="/Bill/Index">Home</a>
+            </div>
+        </form>
+
+    </main>
+</div>
+
+<script>
+    $("#amountPaid").blur(
+      function(){
+            let balance = $("#totalAmount").val() - $("#amountPaid").val();
+            $("#balance").val(balance);
+            $("#billdate").focus();
+      }
+    );
+</script>
+
+

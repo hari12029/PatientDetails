@@ -1,0 +1,86 @@
+﻿@model ViewModels.ViewModel.BillViewModel
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<style>
+    #Home {
+        text-decoration: none
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <main role="main" class="pb-3">
+            <h1>CreateReport</h1>
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <label for="" class="form-label">StartDate</label>
+                    <input type="date" id="Startdate" class="form-control" asp-for="StartDate" />
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">EndDate</label>
+                    <input type="date" id="enddate" class="form-control" asp-for="EndDate" />
+                </div>
+                <div>
+                    <button type="button" id="search" class="btn btn-primary">Search</button>
+                    <a class="btn btn-primary" id="Home" href="/Home/Index">Home</a>
+                </div>
+            </form>
+
+        </main>
+    </div>
+    <div class="row">
+        <table id="billreport" class="table table-bordered table-striped">
+            <thead id="billTable">
+            </thead>
+            <tbody id="billTable">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+     
+    function GetReportData(e) {
+        //e.preventDefault();
+        var reportData = {};
+        reportData.StartDate = $('#Startdate').val();
+        reportData.EndDate = $('#enddate').val();
+
+        $("#billreport").find("tr").remove();
+
+
+        $.ajax({ 
+            url: '/Bill/CreateReport',
+            method: 'post',
+            data: JSON.stringify(reportData),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                $('#billTable').append("<tr>\
+                                                    <th>PatientName</th>\
+                                                    <th>TotalAmount</th>\
+                                                    <th>AmountPaid</th>\
+                                                    <th>Balance</th>\
+                                                    <th>BillDate</th>\
+                                                    <th>ItemName</th>\
+                                              </tr>");
+                $.each(response, function (key, value) {
+                    $('#billTable').append("<tr>\
+                                                    <td>"+ value.patientName + "</td>\
+                                                    <td>"+ value.totalAmount + "</td>\
+                                                    <td>"+ value.amountPaid + "</td>\
+                                                    <td>"+ value.balance + "</td>\
+                                                    <td>"+ value.billDate + "</td>\
+                                                    <td>"+ value.itemName + "</td>\
+                                                </tr>");
+                })
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+</script>
+

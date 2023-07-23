@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ViewModels.ViewModel.BillViewModel>
+
+@{
+
+}
+<style>
+    #Home {
+        text-decoration: none
+    }
+</style>
+<div class="container shadow p-5">
+    <a class="btn btn-primary" style="float:right" id="Home" href="/Bill/CreateBill">Add Bill</a>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th scope="col">PatientName</th>
+                <th scope="col">TotalAmount</th>
+                <th scope="col">AmountPaid</th>
+                <th scope="col">Balance</th>
+                <th scope="col">BillDate</th>
+                <th scope="col">ItemName</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="20%">
+                        @item.PatientName
+                    </td>
+                    <td width="20%">
+                        @item.TotalAmount
+                    </td>
+                    <td width="20%">
+                        @item.AmountPaid
+                    </td>
+                    <td width="20%">
+                        @item.Balance
+                    </td>
+                    <td width="25%">
+                        @item.BillDate
+                    </td>
+                    <td width="25%">
+                        @item.ItemName
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "GetBillById", new { id=item.BillId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

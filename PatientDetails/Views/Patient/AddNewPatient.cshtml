@@ -1,0 +1,44 @@
+﻿@model ViewModels.ViewModel.PatientViiewModel
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<style>
+    #Home {
+        text-decoration: none
+    }
+</style>
+<div class="container">
+    <main role="main" class="pb-3">
+        <h1>Add Patient</h1>
+
+        <form method="post" action="\Patient\AddNewPatient">
+
+            <div class="mb-3">
+                <label for="" class="form-label">Name</label>
+                <input type="text" class="form-control" asp-for="Name" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Genders" class="control-label">Gender</label>
+                <select value="--select--" asp-for="Genders" class="form-control" asp-items="ViewBag.Genderdropdownvalues"></select>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Age</label>
+                <input type="text" class="form-control" asp-for="Age" />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">PhoneNumber</label>
+                <input type="text" class="form-control" max="10" asp-for="PhoneNumber" />
+            </div>
+          
+            <div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a class="btn btn-primary" id="Home" href="/Home/Index">Home</a>
+            </div>
+        </form>
+
+    </main>
+</div>
+
+
